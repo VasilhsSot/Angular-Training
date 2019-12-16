@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <h2>Registration Form</h2>
+  <form [formGroup]="registrationForm">
+  {{registrationForm.value | json}}
+  
+
+    <div class="form-group">
+      <label>Username</label>
+      <input [class.is-invalid]="userName.invalid && 
+      userName.touched" formControlName="userName" 
+      type="text" class="form-control">
+      <!-- <small [class.d-none]="userName.valid || userName.untouched"
+       class="text-danger">Username is required.</small> -->
+       <div *ngIf="userName.invalid && userName.touched">
+          <small *ngIf="userName.errors?.required" class="text-danger">Username is required.</small>
+          <small *ngIf="userName.errors?.minlength" class="text-danger">Username must be at least 3 characters.</small>
+          <small *ngIf="userName.errors?.forbiddenName" class="text-danger">Username not allowed.</small>
+        </div>
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input formControlName="password" type="password" class="form-control">
+      <div *ngIf="password.invalid && password.touched">
+        <small *ngIf="password.errors?.required" class="text-danger">Password is required.</small>
+        <small *ngIf="password.errors?.minlength" class="text-danger">Password must have at least 8 characters length.</small>
+        <small *ngIf="password.errors?.maxlength" class="text-danger">Password can be up to 16 characters long.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input formControlName="confirmPassword" type="password" class="form-control">
+      <div *ngIf="confirmPassword.invalid && confirmPassword.touched">
+        <small *ngIf="confirmPassword.errors?.required" class="text-danger">You must confirm password.</small>
+      </div>
+    </div>
+
+    <!-- creating a group of fields Address, as an object, in a div -->
+    <div formGroupName="address">
+      <div class="form-group">
+        <label>City</label>
+        <input formControlName="city" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>State</label>
+        <input formControlName="state" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Postal Code</label>
+        <input formControlName="postalCode" type="text" class="form-control">
+      </div>
+
+    </div>
+
+    <button class="btn btn-primary" type="submit">Register</button>
+    <button (click)="clearData()" class="btn btn-secondary ml-2" type="button">Clear</button>
+
+  </form>
+</div>
